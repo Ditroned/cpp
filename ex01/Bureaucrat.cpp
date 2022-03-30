@@ -34,7 +34,14 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const & nhs)
 
 void Bureaucrat::signForm(Form & nhs)
 {
-    nhs.setSign();
+    try {
+        if (this->note > nhs.getGradeSign())
+            throw GradeTooHighException();
+        nhs.setSign();
+    }
+    catch(std::exception & e){
+            std::cerr << e.what() << std::endl;
+        }
 }
 
 const char *Bureaucrat::GradeTooHighException::what() const throw() { return "too high"; }

@@ -1,3 +1,4 @@
+#include "Form.hpp"
 #include "RobotomyRequestForm.hpp"
 #include <cstdlib>
 
@@ -39,7 +40,10 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor)
 	int nbr = rand();
   try
   {
-    Form::execute(executor);
+    if (this->_signed == false)
+		throw Form::FormNotSignedException();
+	else if (executor.getGrade() > this->_gexec)
+		throw Form::GradeTooLowException();
   }
   catch(const std::exception &e)
   {

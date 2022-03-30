@@ -40,8 +40,8 @@ private:
 const std::string m_name;
 const int note;
 bool m_sign;
-int m_gradeSign;
-int m_gradeExec;
+const int m_gradeSign;
+const int m_gradeExec;
 };
 
 std::ostream &operator<<(std::ostream &os, const Form &rhs);

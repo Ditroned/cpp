@@ -16,6 +16,6 @@ public:
   virtual ~PresidentialPardonForm(void);
   PresidentialPardonForm &		operator=(PresidentialPardonForm const & rhs);
 
-  virtual void    execute(Bureaucrat const & executor);
+  void    execute(Bureaucrat const & executor);
 };
 #endif

@@ -26,33 +26,52 @@ Intern & Intern::operator=(Intern const & rhs)
 	return *this;
 }
 
+Form *Intern::schrub(std::string target)
+{
+  return (new ShrubberyCreationForm(target));
+}
+
+Form *Intern::presiden(std::string target)
+{
+  return (new PresidentialPardonForm(target));
+}
+
+Form *Intern::robo(std::string target)
+{
+  return (new RobotomyRequestForm(target));
+}
+
 Form * Intern::makeForm(std::string name, std::string target)
 {
 	std::string forms[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
-	Form * src[3] = {new ShrubberyCreationForm(target), new RobotomyRequestForm(target), new PresidentialPardonForm(target)};
-
+	//Form * ( src[]) = {Intern::schrub(target), Intern::presiden(target), Intern::robo(target)};
+  //Form * src[3] = {new ShrubberyCreationForm(target), new RobotomyRequestForm(target), new PresidentialPardonForm(target)};
+  //Form * (Intern::*pointers_to_func_members[3]) (std::string target) = {&Intern::schrub, &Intern::presiden, &Intern::robo};
+  //Form * (Intern::*schrub)(std::string target) = 
+  //Form * (Intern::*src[3])() = {Intern::schrub(target), Intern::presiden(target), Intern::robo(target)};
+  //Form * (src[3])(target) = {(&Intern::schrub), (&Intern::presiden), (&Intern::robo)};
+  
+  
+  Form* rtn;
+	typedef Form* (*func)(std::string target);
+  typedef struct {func func; } FormTypes;
+  FormTypes src[] = {
+    {&Intern::schrub},
+    {&Intern::presiden},
+    {&Intern::robo}};
+    
   int i = 0;
   int check = -1;
-  std::string form_to_create;
   while (i < 3)
   {
     if (forms[i] == name)
     {
-      form_to_create = forms[i];
-	  check = i;
-	  std::cout << "We found it" << std::endl;
+	    check = i;
+	    std::cout << "We found it , the form is " << forms[i] << std::endl;
+
       break;
     }
     i++;
-  }
-  i = 0;
-  while (i < 3)
-  {
-	  if (i != check)
-	  {
-		delete src[i];
-	  }
-	  i++;
   }
   if (check == -1)
   {
@@ -61,7 +80,7 @@ Form * Intern::makeForm(std::string name, std::string target)
   if (check != -1)
   {
 	std::cout << "Inter creates " << name << std::endl;
-    return (src[check]);
+    return (src[check].func(target));
   }
   return (NULL);
 }

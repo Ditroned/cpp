@@ -40,9 +40,9 @@ void test5() {
 	Form form("V2", 0, 70, 50);
 	Bureaucrat bureaucrat(80);
 
+	std::cout << form.getSign() << std::endl;
 	bureaucrat.signForm(form);
-	form.beSigned(bureaucrat);
-	bureaucrat.signForm(form);
+	std::cout << form.getSign() << std::endl;
 }
 
 int main() {

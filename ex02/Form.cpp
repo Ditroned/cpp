@@ -1,5 +1,4 @@
 #include "Form.hpp"
-#include "Bureaucrat.hpp"
 
 Form::Form(void): _name("default_form"), _signed(false), _gexec(150), _gsign(150), _target("default_target")
 {
@@ -94,6 +93,7 @@ std::ostream &			operator<<( std::ostream & o, Form const & i)
 	return o;
 }
 
+/*
 void		Form::execute(Bureaucrat const & executor)
 {
 	if (this->_signed == false)
@@ -101,3 +101,11 @@ void		Form::execute(Bureaucrat const & executor)
 	else if (executor.getGrade() > this->_gexec)
 		throw Form::GradeTooLowException();
 }
+*/
+
+/*
+void		Form::execute(Bureaucrat const & executor)
+{
+	(void)executor;
+}
+*/

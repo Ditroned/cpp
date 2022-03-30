@@ -34,13 +34,15 @@ ShrubberyCreationForm &				ShrubberyCreationForm::operator=(ShrubberyCreationFor
 void	ShrubberyCreationForm::execute(Bureaucrat const & executor)
 {
   (void)executor;
-  //ecriture dans un fichier plutot que sur l entree standard
   std::cout << "Shrubberry Creation Form execute invoked" << std::endl;
 	std::ofstream	output;
 	const std::string	name = this->_target + "_shrubbery";
 	try
 	{
-		Form::execute(executor);
+		if (this->_signed == false)
+		throw Form::FormNotSignedException();
+	else if (executor.getGrade() > this->_gexec)
+		throw Form::GradeTooLowException();
 		output.open(name.data(), std::ofstream::trunc | std::ofstream::out);
 	}
 	catch(const std::exception& e)

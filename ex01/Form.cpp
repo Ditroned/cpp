@@ -54,7 +54,7 @@ void Form::setSign()
 }
 
 void Form::beSigned(const Bureaucrat &bureaucrat) {
-	if (bureaucrat.getGrade() >= m_gradeSign)
+	if (bureaucrat.getGrade() <= m_gradeSign)
 	{
 		m_sign = 1;
 		std::cout << "the form " << m_name << " is signed" << std::endl;

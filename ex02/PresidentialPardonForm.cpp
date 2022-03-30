@@ -38,7 +38,10 @@ void	PresidentialPardonForm::execute(Bureaucrat const & executor)
   std::cout << "Presidential Pardon Form execute" << std::endl;
   try
 	{
-		Form::execute(executor);
+		if (this->_signed == false)
+		throw Form::FormNotSignedException();
+	else if (executor.getGrade() > this->_gexec)
+		throw Form::GradeTooLowException();
 	}
   catch(const std::exception& e)
 	{
